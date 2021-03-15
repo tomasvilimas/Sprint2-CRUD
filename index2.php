@@ -7,6 +7,9 @@
     <title>Sveiki</title>
 </head>
 <body>
+
+<a href="/php_mysql/index.php"><button>Projektai</button></a>
+<a href="/php_mysql/index2.php"><button>Darbuotojai</button></a><br>
 <?php
 $servername = "localhost";
 $username = "root"; 

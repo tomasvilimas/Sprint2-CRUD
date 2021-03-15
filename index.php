@@ -7,9 +7,8 @@
     <title>Sveiki</title>
 </head>
 <body>
-
-<a href="index.php?action=vienas"><button>vienas</button></a>
-<a href="index.php?action=vienas"><button>du</button></a><br>
+<a href="/php_mysql/index.php"><button>Projektai</button></a>
+<a href="/php_mysql/index2.php"><button>Darbuotojai</button></a><br>
 <?php
 $servername = "localhost";
 $username = "root"; 
@@ -23,9 +22,8 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-$_SESSION['vienas'] = "vienas";
-    header('Location: /php%20mysql/index.php');
-    exit;
+
+    
 
 
 
@@ -47,6 +45,8 @@ if (mysqli_num_rows($result) > 0) {
 } else {
     echo "0 results";
 }
+
+
 
 mysqli_close($conn);
 ?>
