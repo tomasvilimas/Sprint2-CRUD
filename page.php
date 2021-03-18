@@ -6,12 +6,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Darbuotojai</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
+<style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
 <body>
 
-    <a href="/php_mysql/index.php"><button>Projektai</button></a>
-    <a href="/php_mysql/page.php"><button>Darbuotojai</button></a><br>
+<header>
+    <div class="topnav" id="myTopnav">
+        <a href="/php_mysql/index.php" class="active">Projektai</a>
+        <a href="/php_mysql/page.php">Darbuotojai</a>
+        <div class=crud>
+            <h1>CRUD</h1>
+        </div>
+        </header>
     <?php
     $servername = "localhost";
     $username = "root";
@@ -31,19 +43,33 @@
 
     $result = mysqli_query($conn, $sql);
 
+    
+    
     if (mysqli_num_rows($result) > 0) {
         $counter = 1;
+        print('<table id=table1>');
+        print('<thead>');
+        print('<tr><th>ID</th><th>Vardas</th><th>Projektas</th><th>Actions</th>');
+
+        print('</thead>');
         while ($row = mysqli_fetch_assoc($result)) {
-            echo "Zmogaus id: " . $counter++ . " - vardas: " . $row["name"] . " - projektas: " . $row["projektas"] . "<br>";
-            print(' <br> <form class="actions" action="" method="POST">
-                    <input type="hidden" name="id" value="' . $row['id'] . '">
-                    <button type="submit" name="delete" value="' . $row['id'] . '">Delete</button>
-                     <button type="submit" name="update" value="">Update</button>
-                    </form>');
+            print('<tr><td>' . $counter++ . '</td><td> ' . $row['name'] . '</td><td> ' . $row['projektas'] . '</td>
+            <td><form class="actions" action="" method="POST">
+            <input type="hidden" name="id" value="' . $row['id'] . '">
+            <button type="submit" name="delete" value="' . $row['id'] . '">Delete</button>
+            <button type="submit" name="update" value="">Update</button>
+            </form></td></tr>');
         }
+        print('<table>');
     } else {
         echo "0 results";
     }
+
+
+
+
+
+
 
     if (isset($_POST['create2'])) {
         $stmt = $conn->prepare("INSERT INTO darbuotojai (id, name) VALUES (?, ?)");
@@ -77,7 +103,7 @@
     <form action="" method="POST">
         <label for="lname"></label><br>
         <input type="TEXT" id="lname" name="lname" value="" placeholder="Darbuotojo vardas"><br>
-        <input type="submit" name="create2" value="Pridėti darbuotoja">
+        <input class=button type="submit" name="create2" value="Pridėti darbuotoją">
 
     </form>
 

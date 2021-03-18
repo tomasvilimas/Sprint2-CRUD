@@ -6,13 +6,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projektai</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
 </head>
 
 <body>
+    <header>
+        <div class="topnav" id="myTopnav">
+            <a href="/php_mysql/index.php" class="active">Projektai</a>
+            <a href="/php_mysql/page.php">Darbuotojai</a>
+            <div class=crud>
+                <h1>CRUD</h1>
+            </div>
+    </header>
 
 
-    <a href="/php_mysql/index.php"><button>Projektai</button></a>
-    <a href="/php_mysql/page.php"><button>Darbuotojai</button></a><br>
+    </a>
+    </div>
+
+
     <?php
     $servername = "localhost";
     $username = "root";
@@ -34,14 +51,20 @@
 
     if (mysqli_num_rows($result) > 0) {
         $counter = 1;
+        print('<table id=table1>');
+        print('<thead>');
+        print('<tr><th>ID</th><th>Projektas</th><th>Darbuotojai</th><th>Actions</th>');
+
+        print('</thead>');
         while ($row = mysqli_fetch_assoc($result)) {
-            echo "proj id: " . $counter++ . " - projektas: " . $row["projektas"] . " - vardas: " . $row["name"] . "<br>";
-            print(' <br> <form class="actions" action="" method="POST">
-        <input type="hidden" name="id" value="' . $row['id'] . '">
-        <button type="submit" name="delete" value="' . $row['id'] . '">Delete</button>
-        <button type="submit" name="update" value="">Update</button>
-    </form>');
+            print('<tr><td>' . $counter++ . '</td><td> ' . $row['projektas'] . '</td><td> ' . $row['name'] . '</td>
+            <td><form class="actions" action="" method="POST">
+            <input type="hidden" name="id" value="' . $row['id'] . '">
+            <button type="submit" name="delete" value="' . $row['id'] . '">Delete</button>
+            <button type="submit" name="update" value="">Update</button>
+            </form></td></tr>');
         }
+        print('<table>');
     } else {
         echo "0 results";
     }
@@ -83,7 +106,7 @@
     <form action="" method="POST">
         <label for="lname"></label><br>
         <input type="TEXT" id="lname" name="lname" value="" placeholder="Projekto pavadinimas"><br>
-        <input type="submit" name="create" value="Pridėti projektą">
+        <input class=button type="submit" name="create" value="Pridėti projektą">
 
     </form>
 
