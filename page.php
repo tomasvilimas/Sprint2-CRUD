@@ -24,24 +24,22 @@
         die("Connection failed: " . mysqli_connect_error());
     }
 
-    $sql = "SELECT  darbuotojai.id,
-        darbuotojai.name,
-        projektai.projektas 
+    $sql = "SELECT  darbuotojai.id, darbuotojai.name, projektai.projektas 
         FROM darbuotojai
-        left JOIN projektai ON darbuotojai.id = projektai.darbuotojo_id 
+        left JOIN projektai ON darbuotojai.projekto_id = projektai.id
         ORDER BY id ASC";
 
     $result = mysqli_query($conn, $sql);
 
     if (mysqli_num_rows($result) > 0) {
-        $counter;
+        $counter = 1;
         while ($row = mysqli_fetch_assoc($result)) {
             echo "Zmogaus id: " . $counter++ . " - vardas: " . $row["name"] . " - projektas: " . $row["projektas"] . "<br>";
             print(' <br> <form class="actions" action="" method="POST">
-        <input type="hidden" name="id" value="' . $row['id'] . '">
-        <button type="submit" name="delete" value="' . $row['id'] . '">Delete</button>
-        <button type="submit" name="update" value="">Update</button>
-    </form>');
+                    <input type="hidden" name="id" value="' . $row['id'] . '">
+                    <button type="submit" name="delete" value="' . $row['id'] . '">Delete</button>
+                     <button type="submit" name="update" value="">Update</button>
+                    </form>');
         }
     } else {
         echo "0 results";
@@ -78,7 +76,7 @@
     <br>
     <form action="" method="POST">
         <label for="lname"></label><br>
-        <input type="TEXT" id="lname" name="lname" value="" placeholder="darbuotojo vardas"><br>
+        <input type="TEXT" id="lname" name="lname" value="" placeholder="Darbuotojo vardas"><br>
         <input type="submit" name="create2" value="Pridėti darbuotoja">
 
     </form>

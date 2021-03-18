@@ -19,24 +19,16 @@
     $password = "mysql";
     $dbname = "sp2";
 
-    
+
     $conn = mysqli_connect($servername, $username, $password, $dbname);
-    
+
     if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
     }
 
-    $sql = 'SELECT projektai.id, projektai.projektas  , darbuotojai.name 
-FROM projektai
-LEFT JOIN darbuotojai ON projektai.darbuotojo_id = darbuotojai.id';
-
-
-
-    // $sql = 'SELECT projektai.id, projektai.projektas, GROUP_CONCAT(CONCAT_WS("  " , darbuotojai.name) SEPARATOR ", ") AS name 
-    // FROM projektai 
-    // LEFT JOIN darbuotojai ON projektai.darbuotojo_id = darbuotojai.id';
-
-
+    $sql = 'SELECT projektai.id, projektai.projektas, GROUP_CONCAT(CONCAT_WS("  " , darbuotojai.name) SEPARATOR ", ") AS name
+    FROM projektai
+    LEFT JOIN darbuotojai ON projektai.id = darbuotojai.projekto_id group by id';
 
     $result = mysqli_query($conn, $sql);
 
@@ -57,16 +49,16 @@ LEFT JOIN darbuotojai ON projektai.darbuotojo_id = darbuotojai.id';
 
 
     if (isset($_POST['create'])) {
-        $stmt = $conn->prepare("INSERT INTO projektai (id, projektas, darbuotojo_id) VALUES (?, ?, ?)");
-        $stmt->bind_param("isi", $id, $projektas, $darbuotojo_id);
+        $stmt = $conn->prepare("INSERT INTO projektai (id, projektas) VALUES (?, ?)");
+        $stmt->bind_param("is", $id, $projektas);
         $id = $_POST['fname'];
         // if(empty($id)){
         //     $id = MYSQLI_AUTO_INCREMENT_FLAG;}
         $projektas = $_POST['lname'];
-        $darbuotojo_id = $_POST['darbuotojo_id'];
-        if (empty($darbuotojo_id)) {
-            $darbuotojo_id =  null;
-        }
+        // $darbuotojo_id = $_POST['darbuotojo_id'];
+        // if (empty($darbuotojo_id)) {
+        //     $darbuotojo_id =  null;
+        // }
         $stmt->execute();
         $stmt->close();
         header('Location: ' . $_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING']);
