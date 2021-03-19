@@ -18,15 +18,13 @@
 <body>
     <header>
         <div class="topnav" id="myTopnav">
-            <a href="/php_mysql/index.php" class="active">Projektai</a>
+            <a href="/php_mysql/index.php">Projektai</a>
             <a href="/php_mysql/page.php">Darbuotojai</a>
             <div class=crud>
                 <h1>CRUD</h1>
             </div>
     </header>
 
-
-    </a>
     </div>
 
 
@@ -109,6 +107,13 @@
         <input class=button type="submit" name="create" value="Pridėti projektą">
 
     </form>
+
+
+    <footer>
+        <div id="footer-content">
+            <p> NO Copyright 2021 @ Tomas - NO Rights Reserved </p>
+        </div>
+    </footer>
 
 
 
