@@ -59,31 +59,25 @@
             <td><form class="actions" action="" method="POST">
             <input type="hidden" name="id" value="' . $row['id'] . '">
             <button type="submit" name="delete" value="' . $row['id'] . '">Delete</button>
-            <button type="submit" name="update" value="">Update</button>
+            <button type="submit" name="update" value="' . $row['id'] . '">Update</button>
             </form></td></tr>');
         }
         print('<table>');
     } else {
-        echo "0 results";
+        echo "Nėra duomenų";
     }
-
-
 
     if (isset($_POST['create'])) {
         $stmt = $conn->prepare("INSERT INTO projektai (id, projektas) VALUES (?, ?)");
         $stmt->bind_param("is", $id, $projektas);
         $id = $_POST['fname'];
-        // if(empty($id)){
-        //     $id = MYSQLI_AUTO_INCREMENT_FLAG;}
         $projektas = $_POST['lname'];
-        // $darbuotojo_id = $_POST['darbuotojo_id'];
-        // if (empty($darbuotojo_id)) {
-        //     $darbuotojo_id =  null;
-        // }
-        $stmt->execute();
-        $stmt->close();
-        header('Location: ' . $_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING']);
-        die;
+        if (!empty($id) || !empty($projektas)) {
+            $stmt->execute();
+            $stmt->close();
+            header('Location: ' . $_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING']);
+            die;
+        }
     }
 
     if (isset($_POST['delete'])) {
@@ -96,30 +90,21 @@
         die;
     }
 
-
-
     mysqli_close($conn);
     ?>
     <br>
     <form action="" method="POST">
         <label for="lname"></label><br>
-        <input type="TEXT" id="lname" name="lname" value="" placeholder="Projekto pavadinimas"><br>
+        <input class=input type="TEXT" id="lname" name="lname" value="" placeholder="Projekto pavadinimas" Required><br>
         <input class=button type="submit" name="create" value="Pridėti projektą">
 
     </form>
-
 
     <footer>
         <div id="footer-content">
             <p> NO Copyright 2021 @ Tomas - NO Rights Reserved </p>
         </div>
     </footer>
-
-
-
-
-
-
 
 </body>
 

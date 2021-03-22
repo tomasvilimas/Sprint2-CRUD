@@ -80,7 +80,7 @@
   background-color: #1c335f;
   border: none;
   color: white;
-  padding: 15px 32px;
+  padding: 15px 40px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -115,4 +115,15 @@
   text-align: right;
   padding: 15px 15px 15px 0px;
   margin: 0px 0px 0px -10px;
+}
+
+.input{
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  border-bottom: solid;
+  margin-left: 10px;
+  margin-bottom: 5px;
+  border-color: 1c335f;
+  text-align: center;
 }

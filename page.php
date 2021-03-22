@@ -62,22 +62,21 @@
                     }
                     print('<table>');
                 } else {
-                    echo "0 results";
+                    echo "Nėra duomenų";
                 }
 
                 if (isset($_POST['create2'])) {
                     $stmt = $conn->prepare("INSERT INTO darbuotojai (id, name) VALUES (?, ?)");
                     $stmt->bind_param("is", $id, $name);
                     $id = $_POST['fname'];
-                    // if(empty($id)){
-                    //     $id = MYSQLI_AUTO_INCREMENT_FLAG;}
                     $name = $_POST['lname'];
 
-
-                    $stmt->execute();
-                    $stmt->close();
-                    header('Location: ' . $_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING']);
-                    die;
+                    if (!empty($id) || !empty($name)) {
+                        $stmt->execute();
+                        $stmt->close();
+                        header('Location: ' . $_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING']);
+                        die;
+                    }
                 }
 
                 if (isset($_POST['delete'])) {
@@ -96,7 +95,7 @@
     <br>
     <form action="" method="POST">
         <label for="lname"></label><br>
-        <input type="TEXT" id="lname" name="lname" value="" placeholder="Darbuotojo vardas"><br>
+        <input class=input type="TEXT" id="lname" name="lname" value="" placeholder="Darbuotojo vardas" Required><br>
         <input class=button type="submit" name="create2" value="Pridėti darbuotoją">
 
     </form>
